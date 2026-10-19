@@ -7,51 +7,59 @@
     --primary-foreground: #f2ebdb;
     --secondary: #b69f7f;
     --accent: #9e5135;
-    --muted: #b69f7f;
     --ring: #2b361a;
-    height: 100%;
-    overflow: hidden;
+    margin: 0; height: 100svh; height: 100dvh; overflow: hidden;
+    background: var(--background); color: var(--foreground);
   }
-  .wana-page { margin: 0; height: 100svh; height: 100dvh; overflow: hidden; background: var(--background); }
-  .wana-canvas { position: relative; width: 100%; max-width: none; height: 100%; margin: 0; padding: 0; overflow: hidden; isolation: isolate; }
-  .wana-canvas astro-island { display: block; width: 100%; height: 100%; }
-  .calm-scene { display: block; position: relative; width: 100%; height: 100%; overflow: hidden; }
-  .art-drift { position: absolute; inset: -3%; }
-  .spa-illustration { display: block; width: 100%; max-width: none; height: 100%; object-fit: cover; object-position: 54% 65%; border-radius: 0; user-select: none; pointer-events: none; }
-  .art-light { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, #f2ebdb26, transparent 60%); }
-  .art-interaction { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; padding: 0; background: transparent; cursor: crosshair; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
-  .art-interaction:focus-visible { outline: 2px solid var(--primary); outline-offset: -10px; }
-  .coming-copy { position: absolute; top: max(13%, env(safe-area-inset-top)); left: 20px; right: 20px; text-align: center; pointer-events: none; }
-  .coming-copy h1 { margin: 0; font-size: clamp(64px, 18vw, 96px); font-family: var(--font-heading); font-weight: 400; line-height: .98; letter-spacing: -.065em; color: var(--foreground); }
-  .coming-copy h1 em { display: block; font-weight: 400; color: var(--accent); }
-  .brand-line { margin: 26px 0 0; color: var(--primary); font-size: 17px; font-weight: 500; letter-spacing: .04em; line-height: 1.5; }
-  .brand-line span { display: block; margin-top: 6px; font-size: 10px; font-weight: 400; letter-spacing: .17em; }
-  .ripple { position: absolute; width: 80px; height: 80px; margin: -40px; border: 1px solid #f2ebdbd9; border-radius: 50%; opacity: 0; pointer-events: none; box-shadow: 0 0 0 1px #53472e26, inset 0 0 14px #f2ebdb20; }
-  .motion-control { position: absolute; right: max(20px, env(safe-area-inset-right)); bottom: max(20px, env(safe-area-inset-bottom)); width: 44px; height: 44px; border-radius: 50%; background: #f2ebdbdb; color: var(--primary); border: 1px solid #b69f7f; padding: 0; z-index: 3; }
-  .motion-control:hover { background: var(--background); }
+  .wana-canvas { position: relative; width: 100%; max-width: none; height: 100%; margin: 0; padding: 0; isolation: isolate; }
+  .calm-scene {
+    position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center;
+    width: 100%; height: 100%; overflow: hidden;
+    padding: max(24px, env(safe-area-inset-top)) 20px max(32px, env(safe-area-inset-bottom));
+    gap: clamp(12px, 2.6dvh, 28px);
+  }
+  .brand-lockup { flex: none; display: flex; flex-direction: column; align-items: center; gap: 8px; margin: 0; color: var(--primary); }
+  .brand-name { font-family: var(--font-heading); font-size: 28px; font-weight: 500; letter-spacing: -.035em; line-height: 1.15; }
+  .brand-place { font-size: 12px; line-height: 1.5; letter-spacing: .07em; }
+  .water-study { position: relative; flex: none; width: min(88vw, 46dvh, 480px); aspect-ratio: 1; isolation: isolate; }
+  .water-image { display: block; width: 100%; height: 100%; max-width: none; object-fit: contain; border-radius: 0; pointer-events: none; user-select: none; }
+  /* The outer margin fades into the exact page palette; the vessel remains fully visible. */
+  .water-study { mask-image: radial-gradient(circle, #000 64%, transparent 72%); }
+  .water-canvas { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; pointer-events: none; transition: opacity .4s; }
+  .water-study[data-renderer="webgl"] .water-canvas { opacity: 1; }
+  .water-touch { position: absolute; inset: 4%; width: 92%; height: 92%; border-radius: 50%; border: 0; padding: 0; background: transparent; touch-action: none; cursor: crosshair; -webkit-tap-highlight-color: transparent; }
+  .water-touch:disabled { cursor: default; }
+  .water-touch:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+  .touch-cursor { position: absolute; left: 50%; top: 50%; display: grid; place-items: center; width: 44px; height: 44px; margin: -22px; border: 1px solid #f2ebdb88; border-radius: 50%; color: #f2ebdb; opacity: 0; pointer-events: none; }
+  .coming-title { flex: none; margin: 0; font-family: var(--font-heading); font-size: clamp(44px, 13vw, 72px); line-height: 1.14; font-weight: 400; letter-spacing: -.055em; text-align: center; white-space: nowrap; }
+  .coming-title em { color: var(--accent); font-weight: 400; }
+  .word-mask { display: inline-block; overflow: hidden; padding-bottom: .1em; margin-bottom: -.1em; vertical-align: bottom; }
+  .title-word { display: inline-block; }
+  .motion-control { position: absolute; right: max(16px, env(safe-area-inset-right)); bottom: max(16px, env(safe-area-inset-bottom)); width: 44px; height: 44px; border: 1px solid #b69f7f80; border-radius: 50%; background: transparent; color: var(--primary); cursor: pointer; z-index: 3; transition: background-color .2s; }
+  .motion-control:hover { background: #b69f7f20; }
   .motion-control[hidden] { display: none; }
-  .motion-control:focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; }
+  .motion-control:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
   @media (min-width: 640px) {
-    .coming-copy { top: 12%; }
-    .coming-copy h1 { font-size: clamp(88px, 10vw, 150px); }
-    .coming-copy h1 em { display: inline; }
-    .brand-line { margin-top: 25px; font-size: 20px; }
-    .brand-line span { font-size: 11px; margin-top: 8px; }
-    .spa-illustration { object-position: 50% 70%; }
-    .motion-control { right: max(28px, env(safe-area-inset-right)); bottom: max(28px, env(safe-area-inset-bottom)); }
+    .calm-scene { gap: clamp(16px, 2.4dvh, 28px); padding: 32px; }
+    .brand-name { font-size: 32px; }
+    .brand-place { font-size: 13px; }
+    .water-study { width: min(64vw, 49dvh, 520px); }
+    .coming-title { font-size: clamp(72px, 10vw, 132px); }
+    .motion-control { right: 28px; bottom: 28px; }
   }
-  @media (max-height: 650px) and (max-width: 639px) {
-    .coming-copy { top: 9%; }
-    .coming-copy h1 { font-size: clamp(54px, 16vw, 74px); }
-    .brand-line { margin-top: 18px; font-size: 15px; }
-    .brand-line span { font-size: 9px; }
+  @media (max-height: 600px) and (max-width: 639px) {
+    .calm-scene { gap: 12px; padding-block: max(20px, env(safe-area-inset-top)) max(24px, env(safe-area-inset-bottom)); }
+    .water-study { width: min(86vw, 47dvh); }
+    .brand-name { font-size: 25px; }
+    .brand-lockup { gap: 6px; }
   }
   @media (max-height: 500px) and (min-width: 540px) {
-    .coming-copy { top: 9%; }
-    .coming-copy h1 { font-size: clamp(44px, 13vh, 65px); }
-    .coming-copy h1 em { display: inline; }
-    .brand-line { margin-top: 14px; font-size: 14px; }
-    .brand-line span { margin-top: 3px; font-size: 9px; }
-    .spa-illustration { object-position: 50% 60%; }
+    .calm-scene { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; align-content: center; justify-items: center; column-gap: 12px; row-gap: 16px; padding: 24px; }
+    .water-study { grid-column: 2; grid-row: 1 / 3; width: min(45vw, 82dvh); }
+    .brand-lockup { align-self: end; }
+    .coming-title { align-self: start; font-size: clamp(36px, 5.5vw, 62px); }
+    .brand-name { font-size: 26px; }
+    .brand-place { font-size: 12px; }
+    .motion-control { right: 16px; bottom: 12px; }
   }
 }

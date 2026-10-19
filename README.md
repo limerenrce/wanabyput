@@ -1,63 +1,58 @@
-# Astro Starter Kit: Blog
+# WANA — coming soon
+
+This checkout is the mobile-first pre-launch website for WANA Spa near Crystal Bay,
+Nusa Penida. The public build contains one route, `/`.
+
+## Branches
+
+- `local/coming-soon`: this one-screen pre-launch experience.
+- `local/full`: retains the blog, about page, content collections, RSS, and full-site templates.
+- `main`: release branch; merge/push only when explicitly requested.
+
+The full branch was verified at `7f5dc9a35d320dd953485e1036b4392dddd7194c`
+before removing those files from this checkout. Do not merge this branch's page
+removals into `local/full`. Shared dependency-security changes must be carried
+across deliberately.
+
+## Development
 
 ```sh
-npm create astro@latest -- --template blog
+npm install
+npm run dev -- --background
+npm run astro -- dev status
+npm run astro -- dev logs
+npm run astro -- dev stop
+npm run build
+npm run preview
+npm audit
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+On Windows, use `npm.cmd` when PowerShell blocks `npm.ps1`.
+Set `SITE_URL` to the verified production origin to emit canonical/social URLs.
+No placeholder production domain is configured.
 
-Features:
+## Artwork and motion
 
-- ✅ Minimal styling (make it your own!)
-- ✅ 100/100 Lighthouse performance
-- ✅ SEO-friendly with canonical URLs and Open Graph data
-- ✅ Sitemap support
-- ✅ RSS Feed support
-- ✅ Markdown & MDX support
+`src/assets/wana-water-study.png` is conceptual artwork generated with the built-in
+ImageGen tool, not a photograph of WANA's premises. Its full generation prompt is
+stored beside it in `wana-water-study.prompt.txt`.
 
-## 🚀 Project Structure
+The whole object is contained in a square stage at every viewport. A small WebGL
+shader refracts only its water area; mouse movement, touch, and keyboard activation
+create damped ripples. The image and text remain visible without JavaScript or
+WebGL. Motion respects reduced-motion preferences, pauses in hidden tabs, and has
+an accessible pause button. Rendering is capped at 30 fps and 900 by 900 pixels;
+GPU resources and listeners are released when the component disconnects.
 
-Inside of your Astro project, you'll see the following folders and files:
+## shadcn dependency security
 
-```text
-├── public/
-├── src/
-│   ├── assets/
-│   ├── components/
-│   ├── content/
-│   ├── layouts/
-│   └── pages/
-├── astro.config.mjs
-├── README.md
-├── package.json
-└── tsconfig.json
-```
+The project uses local shadcn components, Base UI (`@base-ui/react`), and the
+`base-sera` preset in `components.json`. The `shadcn` CLI is not installed as a
+project dependency: its dependency chain includes `braces@3.0.3`, which has no
+patched release for [GHSA-vfj7-8cjw-p6xm](https://github.com/advisories/GHSA-vfj7-8cjw-p6xm).
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
-
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-The `src/content/` directory contains "collections" of related Markdown and MDX documents. Use `getCollection()` to retrieve posts from `src/content/blog/`, and type-check your frontmatter using an optional schema. See [Astro's Content Collections docs](https://docs.astro.build/en/guides/content-collections/) to learn more.
-
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Check out [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
-
-## Credit
-
-This theme is based off of the lovely [Bear Blog](https://github.com/HermanMartinus/bearblog/).
+The stylesheet from `shadcn@4.22.0` is preserved in
+`src/styles/vendor/shadcn-tailwind.css`, with its MIT license alongside it.
+Existing components and styling work without the CLI. Before using the CLI to
+generate components, check that its dependency chain has been patched; do not
+accept the audit suggestion to downgrade to `shadcn@1.0.0`.

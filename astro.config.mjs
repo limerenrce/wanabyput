@@ -1,44 +1,13 @@
 // @ts-check
-
-import mdx from '@astrojs/mdx';
-import sitemap from '@astrojs/sitemap';
-import { defineConfig, fontProviders } from 'astro/config';
-
+import { defineConfig } from 'astro/config';
+import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
 
-import react from '@astrojs/react';
-
-// https://astro.build/config
+// Pre-launch branch: only the coming-soon route is built.
+// Set SITE_URL to the verified production origin before release.
 export default defineConfig({
-  site: 'https://example.com',
-  integrations: [mdx(), sitemap(), react()],
-
-  fonts: [
-      {
-          provider: fontProviders.local(),
-          name: 'Atkinson',
-          cssVariable: '--font-atkinson',
-          fallbacks: ['sans-serif'],
-          options: {
-              variants: [
-                  {
-                      src: ['./src/assets/fonts/atkinson-regular.woff'],
-                      weight: 400,
-                      style: 'normal',
-                      display: 'swap',
-                  },
-                  {
-                      src: ['./src/assets/fonts/atkinson-bold.woff'],
-                      weight: 700,
-                      style: 'normal',
-                      display: 'swap',
-                  },
-              ],
-          },
-      },
-    ],
-
-  vite: {
-    plugins: [tailwindcss()],
-  },
+  site: process.env.SITE_URL || undefined,
+  integrations: [react()],
+  devToolbar: { enabled: false },
+  vite: { plugins: [tailwindcss()] },
 });

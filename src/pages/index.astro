@@ -3,10 +3,10 @@ import '@/styles/global.css';
 import '@/styles/coming-soon.css';
 import CalmScene from '@/components/CalmScene.astro';
 import { getImage } from 'astro:assets';
-import illustration from '@/assets/wana-spa-illustration.png';
+import illustration from '@/assets/wana-water-study.png';
 const [small, large] = await Promise.all([
-  getImage({ src: illustration, width: 960, format: 'webp', quality: 85 }),
-  getImage({ src: illustration, width: 1536, format: 'webp', quality: 85 }),
+  getImage({ src: illustration, width: 640, format: 'webp', quality: 88 }),
+  getImage({ src: illustration, width: 1254, format: 'webp', quality: 88 }),
 ]);
 const title = 'Wana Spa — Coming soon';
 const description = 'Wana Spa. 1st in Crystal Bay. Coming soon.';
@@ -31,7 +31,7 @@ const canonical = Astro.site && Astro.site.hostname !== 'example.com' ? new URL(
   </head>
   <body class="wana-page">
     <main class="wana-canvas" aria-label="Wana Spa coming soon">
-      <CalmScene imageSrc={large.src} imageSrcSet={`${small.src} 960w, ${large.src} 1536w`} />
+      <CalmScene imageSrc={large.src} imageSrcSet={`${small.src} 640w, ${large.src} 1254w`} />
     </main>
   </body>
 </html>
