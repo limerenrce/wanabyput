@@ -1,0 +1,102 @@
+---
+interface Props { imageSrc: string; imageSrcSet: string }
+const { imageSrc, imageSrcSet } = Astro.props;
+---
+<wana-scene class="calm-scene">
+  <div class="art-drift" aria-hidden="true">
+    <div class="art-parallax h-full w-full">
+      <img class="spa-illustration" src={imageSrc} srcset={imageSrcSet}
+        sizes="(max-aspect-ratio: 3/2) 160vh, 110vw" width="1536" height="1024"
+        alt="" fetchpriority="high" loading="eager" decoding="async" draggable="false" />
+    </div>
+  </div>
+  <div class="art-light" aria-hidden="true"></div>
+  <button type="button" class="art-interaction" disabled aria-label="Touch the illustration to create ripples"></button>
+  <div class="coming-copy">
+    <h1>Coming <em>soon</em></h1>
+    <p class="brand-line">Wana Spa<span>1st in crystal bay</span></p>
+  </div>
+  <div aria-hidden="true"><span class="ripple"></span><span class="ripple"></span><span class="ripple"></span></div>
+  <button type="button" class="motion-control inline-flex items-center justify-center" hidden aria-label="Pause motion" aria-pressed="false">
+    <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.3">
+      <path data-pause d="M5 3v10M11 3v10"></path><path data-play d="m5 3 7 5-7 5Z" style="display:none"></path>
+    </svg>
+  </button>
+</wana-scene>
+<script>
+  import { gsap } from 'gsap';
+  class WanaScene extends HTMLElement {
+    private cleanup?: () => void;
+    connectedCallback() {
+      if (this.cleanup) return;
+      const surface = this.querySelector<HTMLButtonElement>('.art-interaction')!;
+      const control = this.querySelector<HTMLButtonElement>('.motion-control')!;
+      const rings = this.querySelectorAll<HTMLElement>('.ripple');
+      let paused = false;
+      let syncPlayback = () => {};
+      const media = gsap.matchMedia();
+      const toggle = () => {
+        paused = !paused;
+        control.setAttribute('aria-label', paused ? 'Play motion' : 'Pause motion');
+        control.setAttribute('aria-pressed', String(paused));
+        this.querySelector<SVGElement>('[data-pause]')!.style.display = paused ? 'none' : '';
+        this.querySelector<SVGElement>('[data-play]')!.style.display = paused ? '' : 'none';
+        surface.disabled = paused;
+        syncPlayback();
+      };
+      control.addEventListener('click', toggle);
+      media.add({ motion: '(prefers-reduced-motion: no-preference)', reduced: '(prefers-reduced-motion: reduce)' }, context => {
+        const reduced = Boolean(context.conditions?.reduced);
+        control.hidden = reduced;
+        surface.disabled = reduced || paused;
+        if (reduced) return;
+        const drift = gsap.to('.art-drift', { scale: 1.035, yPercent: -.6, duration: 9, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+        const moveX = gsap.quickTo('.art-parallax', 'x', { duration: 1.8, ease: 'power2.out' });
+        const moveY = gsap.quickTo('.art-parallax', 'y', { duration: 1.8, ease: 'power2.out' });
+        const ripple = gsap.timeline({ paused: true })
+          .fromTo(rings, { scale: .2, opacity: .75 }, { scale: 3.5, opacity: 0, duration: 2.4, stagger: .18, ease: 'power1.out', immediateRender: false });
+        const inactive = () => paused || document.hidden;
+        syncPlayback = () => {
+          drift.paused(inactive());
+          if (inactive()) { ripple.pause(); moveX.tween.pause(); moveY.tween.pause(); }
+        };
+        const move = (event: PointerEvent) => {
+          if (inactive() || event.pointerType !== 'mouse') return;
+          const bounds = surface.getBoundingClientRect();
+          moveX(((event.clientX - bounds.left) / bounds.width - .5) * 16);
+          moveY(((event.clientY - bounds.top) / bounds.height - .5) * 12);
+        };
+        const leave = () => { if (!inactive()) { moveX(0); moveY(0); } };
+        const interact = (event: MouseEvent) => {
+          if (inactive()) return;
+          const bounds = surface.getBoundingClientRect();
+          const x = event.detail === 0 ? bounds.width * .5 : event.clientX - bounds.left;
+          const y = event.detail === 0 ? bounds.height * .72 : event.clientY - bounds.top;
+          rings.forEach(ring => { ring.style.left = `${x}px`; ring.style.top = `${y}px`; });
+          ripple.restart();
+        };
+        surface.addEventListener('pointermove', move);
+        surface.addEventListener('pointerleave', leave);
+        surface.addEventListener('click', interact);
+        const visibility = () => syncPlayback();
+        document.addEventListener('visibilitychange', visibility);
+        syncPlayback();
+        return () => {
+          syncPlayback = () => {};
+          surface.removeEventListener('pointermove', move);
+          surface.removeEventListener('pointerleave', leave);
+          surface.removeEventListener('click', interact);
+          document.removeEventListener('visibilitychange', visibility);
+        };
+      }, this);
+      this.cleanup = () => {
+        media.revert();
+        control.removeEventListener('click', toggle);
+        control.hidden = true;
+        surface.disabled = true;
+      };
+    }
+    disconnectedCallback() { this.cleanup?.(); this.cleanup = undefined; }
+  }
+  if (!customElements.get('wana-scene')) customElements.define('wana-scene', WanaScene);
+</script>

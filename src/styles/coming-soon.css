@@ -1,0 +1,57 @@
+@layer components {
+  html.coming-soon { height: 100%; overflow: hidden; }
+  .wana-page {
+    --background: #f2ebdb;
+    --foreground: #53472e;
+    --primary: #2b361a;
+    --primary-foreground: #f2ebdb;
+    --secondary: #b69f7f;
+    --accent: #9e5135;
+    --muted: #b69f7f;
+    --ring: #2b361a;
+    height: 100%;
+    overflow: hidden;
+  }
+  .wana-page { margin: 0; height: 100svh; height: 100dvh; overflow: hidden; background: var(--background); }
+  .wana-canvas { position: relative; width: 100%; max-width: none; height: 100%; margin: 0; padding: 0; overflow: hidden; isolation: isolate; }
+  .wana-canvas astro-island { display: block; width: 100%; height: 100%; }
+  .calm-scene { display: block; position: relative; width: 100%; height: 100%; overflow: hidden; }
+  .art-drift { position: absolute; inset: -3%; }
+  .spa-illustration { display: block; width: 100%; max-width: none; height: 100%; object-fit: cover; object-position: 54% 65%; border-radius: 0; user-select: none; pointer-events: none; }
+  .art-light { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(180deg, #f2ebdb26, transparent 60%); }
+  .art-interaction { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; padding: 0; background: transparent; cursor: crosshair; touch-action: manipulation; -webkit-tap-highlight-color: transparent; }
+  .art-interaction:focus-visible { outline: 2px solid var(--primary); outline-offset: -10px; }
+  .coming-copy { position: absolute; top: max(13%, env(safe-area-inset-top)); left: 20px; right: 20px; text-align: center; pointer-events: none; }
+  .coming-copy h1 { margin: 0; font-size: clamp(64px, 18vw, 96px); font-family: var(--font-heading); font-weight: 400; line-height: .98; letter-spacing: -.065em; color: var(--foreground); }
+  .coming-copy h1 em { display: block; font-weight: 400; color: var(--accent); }
+  .brand-line { margin: 26px 0 0; color: var(--primary); font-size: 17px; font-weight: 500; letter-spacing: .04em; line-height: 1.5; }
+  .brand-line span { display: block; margin-top: 6px; font-size: 10px; font-weight: 400; letter-spacing: .17em; }
+  .ripple { position: absolute; width: 80px; height: 80px; margin: -40px; border: 1px solid #f2ebdbd9; border-radius: 50%; opacity: 0; pointer-events: none; box-shadow: 0 0 0 1px #53472e26, inset 0 0 14px #f2ebdb20; }
+  .motion-control { position: absolute; right: max(20px, env(safe-area-inset-right)); bottom: max(20px, env(safe-area-inset-bottom)); width: 44px; height: 44px; border-radius: 50%; background: #f2ebdbdb; color: var(--primary); border: 1px solid #b69f7f; padding: 0; z-index: 3; }
+  .motion-control:hover { background: var(--background); }
+  .motion-control[hidden] { display: none; }
+  .motion-control:focus-visible { outline: 2px solid var(--primary); outline-offset: 4px; }
+  @media (min-width: 640px) {
+    .coming-copy { top: 12%; }
+    .coming-copy h1 { font-size: clamp(88px, 10vw, 150px); }
+    .coming-copy h1 em { display: inline; }
+    .brand-line { margin-top: 25px; font-size: 20px; }
+    .brand-line span { font-size: 11px; margin-top: 8px; }
+    .spa-illustration { object-position: 50% 70%; }
+    .motion-control { right: max(28px, env(safe-area-inset-right)); bottom: max(28px, env(safe-area-inset-bottom)); }
+  }
+  @media (max-height: 650px) and (max-width: 639px) {
+    .coming-copy { top: 9%; }
+    .coming-copy h1 { font-size: clamp(54px, 16vw, 74px); }
+    .brand-line { margin-top: 18px; font-size: 15px; }
+    .brand-line span { font-size: 9px; }
+  }
+  @media (max-height: 500px) and (min-width: 540px) {
+    .coming-copy { top: 9%; }
+    .coming-copy h1 { font-size: clamp(44px, 13vh, 65px); }
+    .coming-copy h1 em { display: inline; }
+    .brand-line { margin-top: 14px; font-size: 14px; }
+    .brand-line span { margin-top: 3px; font-size: 9px; }
+    .spa-illustration { object-position: 50% 60%; }
+  }
+}
