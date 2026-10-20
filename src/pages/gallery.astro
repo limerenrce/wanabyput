@@ -1,0 +1,18 @@
+---
+import { getImage } from 'astro:assets';
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import Photo from '@/components/Photo.astro';
+import GalleryLightbox from '@/components/interactive/GalleryLightbox';
+import { photos, galleryPhotos } from '@/lib/photos';
+import { CONCEPT_NOTE } from '@/consts';
+const items = await Promise.all(galleryPhotos.map(async id => { const photo = photos[id]; const full = await getImage({src:photo.src, width:Math.min(1280,photo.src.width), format:'webp',quality:85}); return { id, src:full.src, width:Number(full.attributes.width), height:Number(full.attributes.height), alt:photo.alt, label:photo.label }; }));
+---
+<SiteLayout title="The space, imagined" description="Explore an intimate visual direction for WANA Spa through concept photography: warm human moments, olive-toned spaces, and thoughtful details." image="treatment-room" breadcrumbs={[{label:'The space'}]}>
+  <div class="wrap"><Breadcrumbs items={[{label:'The space'}]}/><div class="page-heading" data-reveal><p class="eyebrow">A VISUAL EXPLORATION</p><h1>Something you<br/>can almost <em>feel.</em></h1><p class="copy">The warmth of touch. The pause between plans. A little glimpse of the atmosphere we are imagining for WANA.</p></div>
+    <div class="gallery-grid">{items.map((item,i) => <figure class="gallery-item"><a href={item.src} data-gallery-id={item.id} aria-label={`View image: ${item.label}`}><Photo name={item.id} sizes="(min-width:640px) 45vw, 100vw"/><span class="gallery-open" aria-hidden="true">+</span></a><figcaption><span>{item.label}</span><span>{String(i+1).padStart(2,'0')}</span></figcaption></figure>)}</div>
+    <div class="imagery-note" id="imagery-note"><p class="eyebrow" style="margin-bottom:12px">ABOUT THESE IMAGES</p><p>{CONCEPT_NOTE} All people depicted are fictional adults. Final spaces and services are still being considered.</p></div>
+    <div style="height:72px" aria-hidden="true"></div>
+  </div>
+  <GalleryLightbox items={items} client:idle/>
+</SiteLayout>

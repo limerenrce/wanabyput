@@ -1,59 +1,46 @@
 ---
-import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
-import Header from '../components/Header.astro';
-import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
+import { getCollection } from 'astro:content';
+import { getImage } from 'astro:assets';
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import Photo from '@/components/Photo.astro';
+import Arrow from '@/components/Arrow.astro';
+import FlowerMark from '@/components/FlowerMark.astro';
+import FlowerExperience from '@/components/FlowerExperience.astro';
+import TreatmentCard from '@/components/TreatmentCard.astro';
+import JournalCard from '@/components/JournalCard.astro';
+import LocationStrip from '@/components/LocationStrip.astro';
+import { photos } from '@/lib/photos';
+const treatments = (await getCollection('treatments', ({ data }) => !data.draft)).sort((a,b) => a.data.order-b.data.order).filter(t => [1,3,5].includes(t.data.order));
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort((a,b) => b.data.pubDate.valueOf()-a.data.pubDate.valueOf());
+const desktop = await Promise.all([960, 1440, 1536].map(width => getImage({src: photos['hero-landscape'].src, width, format:'webp', quality:78})));
+const mobile = await Promise.all([320, 480, 720].map(width => getImage({src: photos['hero-portrait'].src, width, format:'webp', quality:78})));
 ---
-
-<!doctype html>
-<html lang="en">
-	<head>
-		<BaseHead title={SITE_TITLE} description={SITE_DESCRIPTION} />
-	</head>
-	<body>
-		<Header />
-		<main>
-			<h1>🧑‍🚀 Hello, Astronaut!</h1>
-			<p>
-				Welcome to the official <a href="https://astro.build/">Astro</a> blog starter template. This
-				template serves as a lightweight, minimally-styled starting point for anyone looking to
-				build a personal website, blog, or portfolio with Astro.
-			</p>
-			<p>
-				This template comes with a few integrations already configured in your{' '}
-				<code>astro.config.mjs</code> file. You can customize your setup with{' '}
-				<a href="https://astro.build/integrations">Astro Integrations</a> to add tools like
-				Tailwind, React, or Vue to your project.
-			</p>
-			<p>Here are a few ideas on how to get started with the template:</p>
-			<ul>
-				<li>
-					Edit this page in <code>src/pages/index.astro</code>
-				</li>
-				<li>
-					Edit the site header items in <code>src/components/Header.astro</code>
-				</li>
-				<li>
-					Add your name to the footer in <code>src/components/Footer.astro</code>
-				</li>
-				<li>
-					Check out the included blog posts in <code>src/content/blog/</code>
-				</li>
-				<li>
-					Customize the blog post page layout in <code>src/layouts/BlogPost.astro</code>
-				</li>
-			</ul>
-			<p>
-				Have fun! If you get stuck, remember to{' '}
-				<a href="https://docs.astro.build/">read the docs</a> or{' '}
-				<a href="https://astro.build/chat">join us on Discord</a> to ask questions.
-			</p>
-			<p>
-				Looking for a blog template with a bit more personality? Check out{' '}
-				<a href="https://github.com/Charca/astro-blog-template">astro-blog-template</a> by{' '}
-				<a href="https://twitter.com/Charca">Maxi Ferreira</a>.
-			</p>
-		</main>
-		<Footer />
-	</body>
-</html>
+<SiteLayout title="WANA Spa">
+  <section class="hero" aria-labelledby="hero-heading">
+    <picture class="hero-picture"><source media="(max-width: 899px)" srcset={mobile.map((img,i) => `${img.src} ${[320,480,720][i]}w`).join(', ')} sizes="100vw"/><img src={desktop[1].src} srcset={desktop.map((img,i) => `${img.src} ${[960,1440,1536][i]}w`).join(', ')} sizes="100vw" width="1536" height="1024" alt={photos['hero-landscape'].alt} loading="eager" fetchpriority="high" decoding="async"/></picture>
+    <span class="hero-note">NUSA PENIDA · BALI</span>
+    <div class="hero-content"><p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> A NEW SANCTUARY, COMING SOON</p><h1 id="hero-heading">Come back<br/>to <em>yourself.</em></h1><p class="hero-subline">A slower kind of island time.<br/>Taking shape near Crystal Bay.</p><a href="/treatments/" class="button-link light">Explore treatments <Arrow/></a></div>
+    <div class="hero-index" aria-hidden="true">01 <span></span> THE HUMAN TOUCH <Arrow direction="down"/></div>
+  </section>
+  <section class="section"><div class="wrap intro">
+    <div class="intro-copy" data-reveal><p class="eyebrow"><span class="eyebrow-number">01 /</span> AN ISLAND STATE OF MIND</p><h2>Less rush.<br/>More <em>feeling.</em></h2><div class="copy"><p>Some places ask you to do more. We’re imagining a space that invites you to simply be.</p><p>WANA is a new spa taking shape near Crystal Bay, Nusa Penida. A vision of considered touch, quiet corners, and the warmth of human connection.</p></div><a href="/about/" class="text-link">The story taking shape <Arrow/></a></div>
+    <div class="intro-portraits" data-reveal><Photo name="welcome" class="intro-main"/><Photo name="details" class="intro-detail" sizes="(min-width:900px) 20vw, 40vw"/><FlowerMark class="intro-stamp"/></div>
+  </div></section>
+  <FlowerExperience/>
+  <section class="section"><div class="wrap">
+    <div class="section-heading" data-reveal><div><p class="eyebrow"><span class="eyebrow-number">03 /</span> THE PREVIEW COLLECTION</p><h2>A ritual for<br/><em>your kind of day.</em></h2></div><a href="/treatments/" class="text-link">Explore the collection <Arrow/></a></div>
+    <div class="treatment-grid featured">{treatments.map(treatment => <TreatmentCard treatment={treatment}/>)}</div>
+    <p class="preview-note">A preview of the feeling. Treatment names and descriptions are illustrative; the final collection is still being considered. WANA is not yet taking bookings.</p>
+  </div></section>
+  <section class="olive space-story" aria-labelledby="space-heading"><div class="wrap">
+    <div class="space-heading" data-reveal><div><p class="eyebrow"><span class="eyebrow-number">04 /</span> ROOM TO EXHALE</p><h2 id="space-heading">Let the outside<br/>world <em>wait.</em></h2></div><p class="copy">Filtered light. Earth beneath the details. Spaces imagined around the feeling of being completely at ease.</p></div>
+    <div class="space-story-grid" data-photo-story>
+      <figure class="space-image"><Photo name="treatment-room" sizes="(min-width:900px) 35vw, 100vw"/><figcaption><span>An intimate sanctuary</span><span>01</span></figcaption></figure>
+      <figure class="space-image"><Photo name="corridor" sizes="(min-width:900px) 28vw, 100vw"/><figcaption><span>A quieter rhythm</span><span>02</span></figcaption></figure>
+      <figure class="space-image"><Photo name="reception" sizes="(min-width:900px) 24vw, 100vw"/><figcaption><span>A human welcome</span><span>03</span></figcaption></figure>
+    </div>
+    <div class="space-bottom"><p class="copy">An imagined atmosphere, expressed through AI-generated concept photography.</p><a href="/gallery/" class="text-link">Step inside the vision <Arrow/></a></div>
+  </div></section>
+  <section class="section"><div class="wrap"><div class="section-heading" data-reveal><div><p class="eyebrow"><span class="eyebrow-number">05 /</span> NOTES FROM WANA</p><h2>A slower<br/><em>point of view.</em></h2></div><a href="/blog/" class="text-link">From the journal <Arrow/></a></div><div class="journal-grid">{posts.slice(0,3).map(post => <JournalCard post={post}/>)}</div></div></section>
+  <LocationStrip/>
+</SiteLayout>

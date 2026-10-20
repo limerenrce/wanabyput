@@ -1,0 +1,15 @@
+---
+import { getCollection, render } from 'astro:content';
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import Photo from '@/components/Photo.astro';
+import Arrow from '@/components/Arrow.astro';
+export async function getStaticPaths() { return (await getCollection('treatments', ({data}) => !data.draft)).map(treatment => ({ params: { slug: treatment.id }, props: { treatment } })); }
+const { treatment } = Astro.props;
+const { Content } = await render(treatment);
+---
+<SiteLayout title={`${treatment.data.title} — Preview collection`} description={treatment.data.summary} image={treatment.data.cover} noindex breadcrumbs={[{label:'Treatments',href:'/treatments/'},{label:treatment.data.title}]}>
+  <div class="wrap"><Breadcrumbs items={[{label:'Treatments',href:'/treatments/'},{label:treatment.data.title}]}/><section class="detail-hero"><div><p class="eyebrow">{treatment.data.category} · PREVIEW COLLECTION</p><h1>{treatment.data.title}</h1><p class="copy">{treatment.data.summary}</p><p class="detail-keywords">{treatment.data.detail}</p><div class="preview-banner"><strong>A concept, still taking shape.</strong><p>This is a sample catalogue entry. Final services are not yet confirmed and bookings are not available.</p></div></div><Photo name={treatment.data.cover} class="detail-photo" eager/></section>
+  <section class="prose"><Content/><div class="detail-return"><a href="/treatments/" class="text-link">All treatment concepts <Arrow/></a><a href="/visit/" class="text-link">About our opening <Arrow/></a></div></section></div>
+  <div style="height:72px" aria-hidden="true"></div>
+</SiteLayout>

@@ -1,0 +1,14 @@
+---
+import { getCollection, render } from 'astro:content';
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import Photo from '@/components/Photo.astro';
+import Arrow from '@/components/Arrow.astro';
+export async function getStaticPaths() { return (await getCollection('blog', ({data}) => !data.draft)).map(post => ({ params:{slug:post.id}, props:{post} })); }
+const { post } = Astro.props;
+const { Content } = await render(post);
+const date = new Intl.DateTimeFormat('en', { day:'numeric', month:'long', year:'numeric', timeZone:'Asia/Singapore' }).format(post.data.pubDate);
+---
+<SiteLayout title={post.data.title} description={post.data.description} image={post.data.cover} article={{title:post.data.title,date:post.data.pubDate.toISOString()}} breadcrumbs={[{label:'Journal',href:'/blog/'},{label:post.data.title}]}>
+  <article><div class="wrap"><Breadcrumbs items={[{label:'Journal',href:'/blog/'},{label:post.data.title}]}/><header class="article-header"><p class="eyebrow">{post.data.category} · {post.data.readingTime}</p><h1>{post.data.title}</h1><p class="copy">{post.data.description}</p><p class="article-date">WANA Journal · <time datetime={post.data.pubDate.toISOString()}>{date}</time></p></header><Photo name={post.data.cover} class="article-cover" eager sizes="100vw"/><div class="prose"><Content/><div class="detail-return"><a class="text-link" href="/blog/">Back to the journal <Arrow/></a><a class="text-link" href="/about/">Discover WANA <Arrow/></a></div></div></div></article><div style="height:88px" aria-hidden="true"></div>
+</SiteLayout>

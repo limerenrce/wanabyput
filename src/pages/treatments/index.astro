@@ -1,0 +1,15 @@
+---
+import { getCollection } from 'astro:content';
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import TreatmentCard from '@/components/TreatmentCard.astro';
+import CatalogFilter from '@/components/interactive/CatalogFilter';
+const treatments = (await getCollection('treatments', ({data}) => !data.draft)).sort((a,b) => a.data.order-b.data.order);
+---
+<SiteLayout title="The preview treatment collection" description="Explore WANA’s illustrative preview collection of massage, body, and facial rituals. Final services are still being considered. WANA Spa is coming soon." noindex breadcrumbs={[{label:'Treatments'}]}>
+  <div class="wrap"><Breadcrumbs items={[{label:'Treatments'}]}/><div class="page-heading"><p class="eyebrow">THE PREVIEW COLLECTION</p><h1>Find your<br/>kind of <em>quiet.</em></h1><p class="copy">A first look at the rituals we’re imagining. A little inspiration for the way you might like to spend a slower moment.</p><div class="preview-banner"><strong>Preview collection</strong><p>These are sample treatment concepts, not a confirmed service menu. WANA is coming soon; final treatments and details will be shared when ready. Bookings are not yet available.</p></div></div>
+    <CatalogFilter total={treatments.length} client:load/>
+    <div class="treatment-grid" id="treatment-results">{treatments.map(treatment => <TreatmentCard treatment={treatment}/>)}</div>
+    <p class="preview-note" style="margin-bottom:72px">The imagery is AI-generated concept photography. Treatment descriptions are illustrative and do not make claims about therapeutic outcomes.</p>
+  </div>
+</SiteLayout>

@@ -1,0 +1,11 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Photo from '@/components/Photo.astro';
+interface Props { post: CollectionEntry<'blog'> }
+const { post } = Astro.props;
+---
+<article class="journal-card"><a href={`/blog/${post.id}/`}>
+  <Photo name={post.data.cover} sizes="(min-width: 900px) 30vw, (min-width: 640px) 45vw, 100vw"/>
+  <div class="journal-meta"><span>{post.data.category}</span><span>{post.data.readingTime}</span></div>
+  <h3>{post.data.title}</h3><p>{post.data.description}</p>
+</a></article>

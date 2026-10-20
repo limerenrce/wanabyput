@@ -1,0 +1,11 @@
+---
+import { Image } from 'astro:assets';
+import { photos, type PhotoKey } from '@/lib/photos';
+interface Props { name: PhotoKey; class?: string; eager?: boolean; sizes?: string; position?: string }
+const { name, class: className = '', eager = false, sizes = '(min-width: 1024px) 50vw, 100vw', position } = Astro.props;
+const photo = photos[name];
+const widths = [320, 480, 720, 1024, 1536].filter(width => width <= photo.src.width);
+---
+<Image src={photo.src} alt={photo.alt} class={className} widths={widths} sizes={sizes} format="webp" quality={78}
+  loading={eager ? 'eager' : 'lazy'} decoding="async" fetchpriority={eager ? 'high' : undefined}
+  style={`object-position:${position || photo.position}`} />

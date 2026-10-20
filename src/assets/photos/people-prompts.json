@@ -1,0 +1,47 @@
+{
+  "description": "Fictional AI concept photography for WANA. Adults depicted are not represented as actual WANA staff or customers.",
+  "assets": [
+    {
+      "filename": "hero-landscape.png",
+      "prompt": "Use case: photorealistic-natural. Asset type: wide editorial website hero concept photograph. Create one panoramic landscape 1536x1024 photograph of an intimate fictional tropical spa on Nusa Penida. A warm Indonesian adult woman therapist with medium-brown skin, neat hair bun, muted olive wrap tunic gently tending an adult woman's shoulders while the client rests seated on an ivory-covered treatment bed, client fully modestly wrapped in opaque ivory linen from upper chest down. Both people occupy the right 55–85 percent of the frame, keep hands and faces fully visible and natural, unposed moment of care. Left half is dark olive limewash and deep timber negative space for future heading, absolutely no text rendered. Restrained warm directional window daylight, intimate quiet sophisticated editorial documentary photography, subtle film grain, honest skin texture, 35mm lens. Coherent interior palette olive #2b361a, cream linen #f2ebdb, sand #b69f7f, terracotta #9e5135, dark timber. Tasteful single ceramic bowl and linen on background shelf, no clutter. Adults only, anatomically correct hands, opaque professional spa draping, no nudity, no logos, no watermark, no text. This is a fictional AI concept image, not real business photography.",
+      "focal": "73% 46%",
+      "mode": "built-in imagegen",
+      "concept": true
+    },
+    {
+      "filename": "hero-portrait.png",
+      "prompt": "Use case: identity-preserve. Asset type: portrait mobile website hero, 1024x1536. Input image is the EDIT TARGET. Reframe this exact intimate fictional spa scene into a sophisticated vertical portrait photograph, preserving the same adult Indonesian therapist with neat bun and olive wrap tunic, the same adult woman client and ivory opaque draping, natural caring mood, materials, authentic skin texture and warm directional light. Keep both faces, therapist hands on client shoulders, and client head fully visible. Frame both adults in middle and lower two thirds, with dark olive limewash negative space above and a little left suitable for future heading. The client remains fully modestly wrapped from upper chest down. No graphic text, no logos, no watermark, no other people, no changed identities. Natural editorial documentary photo, very subtle grain. Keep original olive #2b361a and ivory #f2ebdb palette.",
+      "focal": "59% 57%",
+      "mode": "built-in imagegen",
+      "concept": true
+    },
+    {
+      "filename": "welcome.png",
+      "prompt": "Use case: photorealistic-natural. Asset type: portrait editorial website concept photo, 1024x1536. A candid warm human welcome at the open timber doorway of an intimate fictional tropical spa on Nusa Penida. Adult Indonesian woman therapist with medium-brown skin, neat black hair bun and professional muted olive wrap tunic smiles naturally while lightly greeting an adult woman guest in a loose ivory linen shirt and sand trousers. Show their natural faces in three-quarter view and relaxed welcoming hands, no handshake required. Eye-level medium-wide view, both people fully inside portrait frame with breathing room at edges, generous olive wall around them. Olive limewash #2b361a, aged deep timber doorway, warm linen #f2ebdb, sand #b69f7f, discreet terracotta #9e5135 pottery and tropical leaves outside. Restrained warm directional daylight, authentic understated luxury, documentary editorial realism, honest skin texture and subtle grain, no fashion posing. Adults only, fully clothed, anatomically natural hands. No text, no logos, no watermark, no real-business claims.",
+      "focal": "52% 48%",
+      "mode": "built-in imagegen",
+      "concept": true
+    },
+    {
+      "filename": "shoulder.png",
+      "prompt": "Use case: photorealistic-natural. Asset type: portrait editorial spa treatment concept photograph, 1024x1536. Close intimate side view of an adult Indonesian female therapist's natural medium-brown hands giving a gentle shoulder ritual to an adult woman seated upright, fully wrapped from upper chest down in thick opaque ivory linen. A portion of relaxed client's face eyes closed is visible upper right, no tight erotic framing, natural anatomically correct fingers resting on shoulders. Olive wrap tunic sleeve of therapist enters upper left. At an intimate fictional tropical spa, dark olive limewash #2b361a and aged timber softly out of focus, cream #f2ebdb towel texture, muted sand #b69f7f. Warm directional window light highlights the hands and woven linen, quiet professional care, authentic skin texture, fine subtle film grain, documentary editorial photograph 85mm lens. Full hands not cropped, no extra hands, no extra fingers, no nudity, adults only, no text or logos or watermark.",
+      "focal": "53% 39%",
+      "mode": "built-in imagegen",
+      "concept": true
+    },
+    {
+      "filename": "foot.png",
+      "prompt": "Use case: photorealistic-natural. Asset type: portrait editorial website treatment concept photograph, 1024x1536. A tasteful professional foot ritual at a fictional intimate tropical spa. Close view of one adult guest's relaxed foot cradled naturally by two adult Indonesian therapist hands with medium-brown skin over a thick warm ivory linen towel at the edge of a low wooden seat. Exactly one foot with five anatomically natural toes is primary subject, the other foot remains quietly resting beside it, no duplicate limbs. Therapist wearing muted olive wrap tunic and trousers is partially visible seated at left; faces not necessary. Low round terracotta basin near bottom, warm olive limewash and deep timber background, single frangipani bloom on folded towel. Muted olive #2b361a, cream #f2ebdb, sand #b69f7f, terracotta #9e5135. Soft warm directional daylight, candid care, authentic skin and linen texture, documentary editorial photography, subtle fine grain. Adults only, fully clothed apart from feet, nonsexual professional setting. No text, logos, watermark, extra limbs or fingers.",
+      "focal": "54% 47%",
+      "mode": "built-in imagegen",
+      "concept": true
+    },
+    {
+      "filename": "couple.png",
+      "prompt": "Use case: photorealistic-natural. Asset type: wide landscape editorial website spa concept photo, 1536x1024. Two adult guests, a woman aged early thirties with deep-brown skin and curly dark hair and a man aged mid-thirties with medium-brown skin and short dark hair, sit comfortably side by side with respectful space between them on a long low carved timber bench in an intimate fictional tropical spa lounge. Both wear opaque thick ivory belted spa robes covering chest and legs, natural candid quiet smile while talking, relaxed hands resting around small ceramic tea cups. Natural human connection, not posing to camera. Show both full heads and hands and contextual room. Olive limewash #2b361a behind them, deep warm timber, warm linen #f2ebdb cushions, sand #b69f7f woven rug, discreet terracotta #9e5135 bowl, sculptural frangipani branches through open window. Restrained warm directional afternoon daylight, documentary editorial photograph, authentic skin texture, subtle film grain, high end but human. Adults only, no nudity, no text, no logos, no watermark, no real-business claims, no extra limbs.",
+      "focal": "53% 48%",
+      "mode": "built-in imagegen",
+      "concept": true
+    }
+  ]
+}

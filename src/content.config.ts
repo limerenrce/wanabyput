@@ -1,20 +1,13 @@
 import { defineCollection } from 'astro:content';
-import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
-
-const blog = defineCollection({
-	// Load Markdown and MDX files in the `src/content/blog/` directory.
-	loader: glob({ base: './src/content/blog', pattern: '**/*.{md,mdx}' }),
-	// Type-check frontmatter using a schema
-	schema: ({ image }) =>
-		z.object({
-			title: z.string(),
-			description: z.string(),
-			// Transform string to Date object
-			pubDate: z.coerce.date(),
-			updatedDate: z.coerce.date().optional(),
-			heroImage: z.optional(image()),
-		}),
+import { glob } from 'astro/loaders';
+const photo = z.enum(['hero-landscape', 'hero-portrait', 'welcome', 'shoulder', 'foot', 'couple', 'facial', 'body', 'treatment-room', 'corridor', 'reception', 'details']);
+const treatments = defineCollection({
+  loader: glob({ base: './src/content/treatments', pattern: '*.md' }),
+  schema: z.object({ title: z.string(), category: z.enum(['Massage', 'Body', 'Face']), summary: z.string(), cover: photo, order: z.number(), isDemo: z.literal(true), draft: z.boolean().default(false), detail: z.string() }),
 });
-
-export const collections = { blog };
+const blog = defineCollection({
+  loader: glob({ base: './src/content/blog', pattern: '*.md' }),
+  schema: z.object({ title: z.string(), description: z.string(), pubDate: z.coerce.date(), category: z.string(), cover: photo, readingTime: z.string(), draft: z.boolean().default(false) }),
+});
+export const collections = { treatments, blog };

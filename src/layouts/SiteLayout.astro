@@ -1,0 +1,23 @@
+---
+import BaseHead from '@/components/BaseHead.astro';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import type { PhotoKey } from '@/lib/photos';
+interface Props { title: string; description?: string; noindex?: boolean; image?: PhotoKey; article?: { title: string; date: string }; breadcrumbs?: { label: string; href?: string }[] }
+---
+<!doctype html>
+<html lang="en" id="top">
+  <head><BaseHead {...Astro.props}/></head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <Header/>
+    <main id="main-content"><slot/></main>
+    <Footer/>
+    <script>
+      import { mountMotion } from '@/lib/motion';
+      const cleanup = mountMotion();
+      document.addEventListener('astro:before-swap', cleanup, { once: true });
+      window.addEventListener('pagehide', cleanup, { once: true });
+    </script>
+  </body>
+</html>

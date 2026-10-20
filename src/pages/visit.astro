@@ -1,0 +1,10 @@
+---
+import SiteLayout from '@/layouts/SiteLayout.astro';
+import Breadcrumbs from '@/components/Breadcrumbs.astro';
+import Photo from '@/components/Photo.astro';
+import Arrow from '@/components/Arrow.astro';
+---
+<SiteLayout title="Find our corner of Nusa Penida" description="WANA Spa is coming soon near Crystal Bay, Nusa Penida. Discover where our story is taking shape. Opening dates and final visit details will be shared once confirmed." image="corridor" breadcrumbs={[{label:'Find us'}]}>
+  <div class="wrap"><Breadcrumbs items={[{label:'Find us'}]}/><div class="page-heading" data-reveal><p class="eyebrow">AN ISLAND INVITATION</p><h1>Not far away.<br/><em>A world apart.</em></h1><p class="copy">Near Crystal Bay, Nusa Penida. A new space to pause is quietly taking shape.</p></div></div>
+  <section class="section" style="padding-top:0"><div class="wrap visit-layout"><Photo name="corridor" class="visit-photo" eager/><div class="visit-details"><p class="eyebrow"><span class="status-dot" aria-hidden="true"></span> COMING SOON</p><h2>Good things<br/>take <em>their time.</em></h2><p class="copy">We’re putting thought into the details. When our opening plans are confirmed, we’ll share the date, exact address, and everything you need to know for a visit.</p><dl class="visit-facts"><div><dt>Our neighbourhood</dt><dd>Near Crystal Bay</dd></div><div><dt>Our island</dt><dd>Nusa Penida, Bali</dd></div><div><dt>Opening &amp; reservations</dt><dd>Details to come</dd></div></dl><a href="/treatments/" class="text-link">Explore the preview collection <Arrow/></a></div></div></section>
+</SiteLayout>

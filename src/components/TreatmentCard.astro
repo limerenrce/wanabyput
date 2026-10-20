@@ -1,0 +1,14 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Photo from '@/components/Photo.astro';
+import Arrow from '@/components/Arrow.astro';
+interface Props { treatment: CollectionEntry<'treatments'> }
+const { treatment } = Astro.props;
+---
+<article class="treatment-card" data-treatment-category={treatment.data.category}>
+  <a href={`/treatments/${treatment.id}/`}>
+    <div class="treatment-image"><Photo name={treatment.data.cover} sizes="(min-width: 900px) 30vw, (min-width: 640px) 45vw, 100vw"/><span class="card-arrow"><Arrow/></span></div>
+    <div class="treatment-category"><span>{treatment.data.category}</span><span>Preview</span></div>
+    <h3>{treatment.data.title}</h3><p>{treatment.data.summary}</p>
+  </a>
+</article>
